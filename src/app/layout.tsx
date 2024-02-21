@@ -1,10 +1,11 @@
 import React from 'react';
-import './globals.css';
+import './';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <React.Fragment>{children}</React.Fragment>;
+  // Using shorthand for React.Fragment
+  return <>{children}</>;
 }
