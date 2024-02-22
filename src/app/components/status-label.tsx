@@ -24,9 +24,7 @@ export default function StatusLabel({
       className={clsx(
         'inline-flex items-center py-1 px-3.5 rounded-3xl text-sm font-medium',
         {
-          ['opacity-75 cursor-not-allowed']:disabled,
-        }
-        `${
+          'opacity-50 cursor-not-allowed': disabled,
           'text-green-700 bg-green-100': status === Status.Active,
           'text-red-700 bg-red-100': status === Status.NotActive,
           'text-orange-700 bg-orange-100': status === Status.Pending,
