@@ -19,6 +19,7 @@ export default function StatusLabel({
   status,
   disabled,
 }: StatusLabelProps) {
+  console.log(process.env.CRM_SECRET);
   return (
     <div
       className={clsx(
