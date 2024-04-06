@@ -1,18 +1,11 @@
-'use client';
-
 import React from 'react';
 import { Form, Formik } from 'formik';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  CompanyStatus,
-  createCompany,
-  getCategories,
-  getCountries,
-} from '@/lib/api';
+import { createCompany, getCategories, getCountries } from '@/lib/api';
 import Button from '@/app/components/button';
 import InputField from '@/app/components/input-field';
 import LogoUploader from '@/app/components/logo-uploader';
-import StatusLabel from '@/app/components/status-label';
+import StatusLabel, { CompanyStatus } from '@/app/components/status-label'; // Import CompanyStatus enum from StatusLabel component
 
 export type CompanyFieldValues = {
   title: string;
@@ -61,8 +54,17 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
   });
 
   const handleSubmit = async (values: CompanyFieldValues) => {
+    // Convert Status to CompanyStatus
+    const companyStatusMap: Record<CompanyStatus, CompanyStatus> = {
+      [CompanyStatus.Active]: CompanyStatus.Active,
+      [CompanyStatus.NotActive]: CompanyStatus.NotActive,
+      [CompanyStatus.Pending]: CompanyStatus.Pending,
+      [CompanyStatus.Suspended]: CompanyStatus.Suspended,
+    };
+
     await mutateAsync({
       ...values,
+      status: companyStatusMap[values.status], // Use the converted CompanyStatus
       categoryTitle:
         categories?.find(({ id }) => id === values.categoryId)?.title ?? '',
       countryTitle:
@@ -88,13 +90,12 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
               name="status"
               as="select"
             >
-              {(Object.values(CompanyStatus) as CompanyStatus[]).map(
-                (status) => (
-                  <option key={status} value={status}>
-                    <StatusLabel status={status} styled={false} />
-                  </option>
-                ),
-              )}
+              {/* Render StatusLabel component with CompanyStatus enum values */}
+              {Object.values(CompanyStatus).map((status) => (
+                <option key={status} value={status}>
+                  <StatusLabel status={status} children={undefined} />
+                </option>
+              ))}
             </InputField>
             <InputField
               required

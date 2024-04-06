@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-export enum Status {
+export enum CompanyStatus {
   Active = 'active',
   NotActive = 'not active',
   Pending = 'pending',
@@ -10,7 +10,7 @@ export enum Status {
 
 export interface StatusLabelProps {
   children: React.ReactNode;
-  status: Status;
+  status: CompanyStatus;
   disabled?: boolean;
 }
 
@@ -26,10 +26,10 @@ export default function StatusLabel({
         'inline-flex items-center py-1 px-3.5 rounded-3xl text-sm font-medium',
         {
           'opacity-50 cursor-not-allowed': disabled,
-          'text-green-700 bg-green-100': status === Status.Active,
-          'text-red-700 bg-red-100': status === Status.NotActive,
-          'text-orange-700 bg-orange-100': status === Status.Pending,
-          'text-blue-700 bg-blue-100': status === Status.Suspended,
+          'text-green-700 bg-green-100': status === CompanyStatus.Active,
+          'text-red-700 bg-red-100': status === CompanyStatus.NotActive,
+          'text-orange-700 bg-orange-100': status === CompanyStatus.Pending,
+          'text-blue-700 bg-blue-100': status === CompanyStatus.Suspended,
         },
       )}
     >
